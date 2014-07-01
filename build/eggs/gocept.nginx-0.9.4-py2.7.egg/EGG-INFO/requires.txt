@@ -1,5 +1,0 @@
-setuptools
-zc.buildout
-
-[test]
-zope.testing
