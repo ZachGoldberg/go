@@ -29,6 +29,7 @@ backend go
       server localhost localhost:${go_internal_port} check maxconn 10
 
 backend null
+      redirect location http://stxbr.com
 
 listen admin_interface :${go_admin_port}
       stats enable
