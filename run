@@ -38,6 +38,10 @@ run_buildout() {
     ./bin/buildout -oN
 }
 
+run_all() {
+    ./run haproxy | ./run nginx | ./run wsgi
+}
+
 run_syncdb() {
 	./bin/djangogo syncdb
 }
