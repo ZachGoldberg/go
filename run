@@ -39,7 +39,32 @@ run_buildout() {
 }
 
 run_all() {
-    ./run haproxy | ./run nginx | ./run wsgi
+    trap "kill -- -$BASHPID" EXIT
+    sudo ./run haproxy | ./run nginx | ./run wsgi
+}
+
+run_daemon_stop() {
+    PGRP=$(ps o pgrp -p `cat build/var/all.pid` | tail -n 1 | tr -d ' ')
+    echo $PGRP
+    sudo kill -7 -$PGRP
+}
+
+run_daemon_kill() {
+    sudo pkill -9 -f nginx
+    sudo pkill -9 -f wsgi
+    sudo pkill -9 -f haproxy
+}
+
+run_restart_daemon() {
+    run_daemon_stop
+    sleep 1
+    run_daemon
+
+}
+
+run_daemon() {
+    sudo start-stop-daemon --start -v -b -m --pidfile build/var/all.pid \
+        --exec /bin/bash -- -c "`pwd`/run all > `pwd`/build/var/all.log 2>&1"
 }
 
 run_syncdb() {
