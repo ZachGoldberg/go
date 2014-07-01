@@ -1,3 +1,6 @@
+git submodule init
+git submodule sync
+git submodule update
 mkdir -p parts
 mkdir -p build/parts
 
