@@ -1,3 +1,0 @@
-[submodule "third-party/dist-modified/url-shortener"]
-	path = third-party/dist-modified/url-shortener
-	url = git@github.com:ZachGoldberg/url-shortener.git
