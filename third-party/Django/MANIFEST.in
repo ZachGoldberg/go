@@ -1,0 +1,24 @@
+include README
+include AUTHORS
+include INSTALL
+include LICENSE
+include MANIFEST.in
+include django/dispatch/license.txt
+include django/utils/simplejson/LICENSE.txt
+recursive-include scripts *
+recursive-include extras *
+recursive-include django/conf/locale *
+recursive-include django/contrib/*/locale *
+recursive-include django/contrib/admin/templates *
+recursive-include django/contrib/admin/media *
+recursive-include django/contrib/admindocs/templates *
+recursive-include django/contrib/auth/fixtures *
+recursive-include django/contrib/auth/tests/templates *
+recursive-include django/contrib/comments/templates *
+recursive-include django/contrib/databrowse/templates *
+recursive-include django/contrib/formtools/templates *
+recursive-include django/contrib/formtools/tests/templates *
+recursive-include django/contrib/flatpages/fixtures *
+recursive-include django/contrib/flatpages/tests/templates *
+recursive-include django/contrib/sitemaps/templates *
+recursive-include django/contrib/sitemaps/tests/templates *

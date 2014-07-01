@@ -1,0 +1,40 @@
+#!/bin/sh
+ARGV="$@"
+NGINX='/home/zgoldberg/workspace/Proximity/go/bin/nginx-bin'
+PIDFILE='/home/zgoldberg/workspace/Proximity/go/build/parts/nginx-ctl/nginx-ctl.pid'
+CONFIGURATION='/home/zgoldberg/workspace/Proximity/go/build/parts/nginx-ctl/nginx-ctl.conf'
+
+ERROR=0
+if [ "x$ARGV" = "x" ] ; then 
+    ARGV="-h"
+fi
+
+case $ARGV in
+start)
+    echo "Starting nginx "
+    $NGINX -c $CONFIGURATION
+    error=$?
+    ;;
+stop)
+    echo "Stopping nginx "
+    kill `cat $PIDFILE`
+    error=$?
+    ;;
+reload)
+    echo "Reloading nginx "
+    kill -HUP `cat $PIDFILE`
+    error=$?
+    ;;
+reopen_transcript)
+    echo "Reopening logfiles"
+    kill -USR1 `cat $PIDFILE`
+    error=$?
+    ;;
+configtest)
+    echo "Testing nginx configuration "
+    $NGINX -c $CONFIGURATION -t
+    ERROR=$?
+    ;;
+esac
+
+exit $ERROR

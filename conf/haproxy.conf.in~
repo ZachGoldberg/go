@@ -1,0 +1,38 @@
+global
+      maxconn 4096
+      pidfile /var/run/go_${go_host}_haproxy.pid
+      tune.bufsize 49556
+
+defaults
+      mode http
+      retries 3
+      option redispatch
+      maxconn 2000
+      timeout connect 50000
+      timeout client 50000
+      timeout server 50000
+
+frontend webserver
+      bind 0.0.0.0:80
+      mode http
+      stats enable
+      balance roundrobin
+      option httpclose
+      option forwardfor
+	
+      acl is_go_1 hdr_dom(host) -i ${go_host}
+      use_backend go if is_go_1
+
+      default_backend null
+
+backend go
+      server localhost localhost:${go_internal_port} check maxconn 10
+
+backend null
+
+listen admin_interface :${go_admin_port}
+      stats enable
+      stats uri /stats?admin
+      stats auth zach:qwe123
+
+
