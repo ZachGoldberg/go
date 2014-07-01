@@ -21,7 +21,9 @@ frontend webserver
       option forwardfor
 
       acl is_go_1 hdr_dom(host) -i ${go_host}
+      acl is_go_2 hdr_dom(host) -i str ${go_host2}
       use_backend go if is_go_1
+      use_backend go if is_go_2
 
       default_backend null
 
